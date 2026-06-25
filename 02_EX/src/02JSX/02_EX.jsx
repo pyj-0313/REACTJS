@@ -13,12 +13,12 @@
 // ---------------------------------------------------------------------
 export const ShopBanner = () => {
   // {TODO} <h3> 요소를 return 하세요.
-  return null;
+  return <h3>오늘의 마켓</h3>;
 };
 
 export function ShopNotice() {
   // {TODO} <h3> 요소를 return 하세요.
-  return null;
+  return <h3>특가 진행중</h3>;
 }
 
 // ---------------------------------------------------------------------
@@ -28,7 +28,7 @@ export function ShopNotice() {
 // ---------------------------------------------------------------------
 export function ProductLine(props) {
   // {TODO} props.name 과 props.price 를 사용해 <p>...</p> 를 return 하세요.
-  return null;
+  return <p> {props.name} - {props.price}</p>
 }
 
 // ---------------------------------------------------------------------
@@ -37,10 +37,10 @@ export function ProductLine(props) {
 //  {TODO} 2) 할인가 = price * (100 - rate) / 100 을 계산하세요.
 //  {TODO} 3) "정가 ...원 -> rate% 할인가 할인가원" 형태로 출력하세요.
 // ---------------------------------------------------------------------
-export function DiscountLine(props) {
+export function DiscountLine({name,price,rate}) {
   // {TODO} 구조분해할당 + 할인가 계산 후 return
-  return null;
-}
+    return <p> {name} 정가{price}원 -> {rate}% 할인가 {price * (100 - rate) /100}  </p> 
+    }
 
 // ---------------------------------------------------------------------
 // [단계 4] 조건부 출력 응용 (재고 수에 따라 3가지 상태)
@@ -52,7 +52,13 @@ export function DiscountLine(props) {
 // ---------------------------------------------------------------------
 export function StockStatus({ name, stock }) {
   // {TODO} if / else if / else 로 status 를 정한 뒤 <p> 로 return 하세요.
-  return null;
+  if(stock === 0){
+    return <p>{name} : 품절</p>
+  }else if(stock <= 5){
+    return <p>{name} : 마감임박 ({stock}개 남음)</p>
+  }else{
+  return <p>{name} : 구매가능</p>
+  }
 }
 
 // ---------------------------------------------------------------------
@@ -62,10 +68,26 @@ export function StockStatus({ name, stock }) {
 //            금액 = price * qty
 //  {TODO} 2) reduce 로 전체 합계를 구해 맨 아래 "합계 : 합계원" 출력
 // ---------------------------------------------------------------------
+
 export function Cart({ items }) {
-  // {TODO} total 계산 (reduce)
+    // {TODO} total 계산 (reduce)
   // {TODO} <ul> + map 으로 목록 출력, 아래에 합계 출력
-  return null;
+  const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+  return (
+    <div>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.name} x {item.qty} = {item.price * item.qty}원
+          </li>
+        ))}
+      </ul>
+      <p>
+        <b>합계 : {total}원</b>
+      </p>
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------------
