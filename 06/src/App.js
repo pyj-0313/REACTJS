@@ -1,21 +1,24 @@
-import Component01 from "./05ConditionRendering/Component01"
-import Component02 from "./05ConditionRendering/Component02"
-import Component03 from "./05ConditionRendering/Component03"
+import Home from "./06Route/Home"
+import About from "./06Route/About"
+import Contact from "./06Route/Contact"
+
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 
 function App() {
   return (
     <div className="App">
-      <h1>ConditionRendering HANDLING</h1>
-      <hr/>
-      <Component01 isAuth={false} />
-      <hr/>
-      <Component02 isAuth={true} />
-      <hr/>
-      <h2>&& -01</h2>
-      <Component03 />
-      <hr/>
-      <h2>&& -02</h2>
-      <Component03 items={['오렌지','바나나','수박','딸기']} />
+      {/* <h1>ROUTE</h1> */}
+
+
+
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/About" element={<About />} />
+          <Route path="/Contact/:name?/:age?" element={<Contact />} />
+        </Routes>
+      </Router>
+
     </div>
   );
 }
