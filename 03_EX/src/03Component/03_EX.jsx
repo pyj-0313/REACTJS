@@ -14,12 +14,40 @@ import { useState, useEffect } from "react";
 //  {TODO} 3) 현재 count 값을 화면에 출력
 // ---------------------------------------------------------------------
 export function Counter() {
+  //State
+  const [count,setCount] = useState(0);
+
+  //Handler
+  const hanhandleIncrement = () =>{
+    setCount(count+1);
+  }
+  const handleDecrement = () =>{
+    setCount(count-1);
+  }
+  const handleReset = () =>{
+    setCount(0);
+  }
+
+  useEffect(()=>{
+    console.log("init setting..");
+  },[])
+
+  useEffect(()=>{
+    console.log("count state changed..",count);
+  },[count])
   // {TODO} useState 로 count 선언
   return (
+    
     <div>
       <h4>[단계 1] 카운터</h4>
       {/* {TODO} 현재 count 출력 + 버튼 3개 (+1 / -1 / 초기화) */}
+      <button onClick={hanhandleIncrement}>BTN Count : {count} </button>
+      <hr/>
+      <button onClick={handleDecrement}>BTN Count2 : {count} </button>
+      <hr/>
+      <button onClick={handleReset}>BTN Reset : {count} </button>
     </div>
+    
   );
 }
 
@@ -30,10 +58,20 @@ export function Counter() {
 //  {TODO} 3) 입력한 값을 아래 <p> 에 실시간으로 출력
 // ---------------------------------------------------------------------
 export function NameInput() {
+  const [state, setState] = useState("");
+
+  const handleChange = (e)=>{
+    console.log("onChange...",e);
+    const{value,type} = e.target;
+    setState(value);
+  }
   // {TODO} text state 선언 + onChange 핸들러
   return (
     <div>
       <h4>[단계 2] 입력값 관리</h4>
+      <p>{state}</p>
+        <br/>
+      <input type="text" value={state} onChange={handleChange} />
       {/* {TODO} input 과 출력 <p> */}
     </div>
   );
@@ -46,11 +84,19 @@ export function NameInput() {
 //  {TODO} 3) on 이 true 면 "켜짐 💡", false 면 "꺼짐 ⚫" 출력
 // ---------------------------------------------------------------------
 export function ToggleLamp() {
-  // {TODO} on state 선언 + 토글 핸들러
+    // {TODO} on state 선언 + 토글 핸들러
+  const [state, setState] = useState(false);
+
+  const hanhandleIncrement = () =>{
+    setState(!state)
+  }
+
   return (
     <div>
       <h4>[단계 3] 토글 램프</h4>
       {/* {TODO} 상태 출력 + 토글 버튼 */}
+      <p>{state ? "켜짐 💡" : "꺼짐 ⚫"}</p>
+      <button onClick={hanhandleIncrement}>BTN : {state} </button>
     </div>
   );
 }
@@ -64,6 +110,9 @@ export function ToggleLamp() {
 export function WelcomeBox() {
   const [message, setMessage] = useState("로딩중...");
   // {TODO} useEffect( () => { ... }, [] )
+    useEffect(()=>{
+    console.log(setMessage("환영합니다!"));
+  },[])
 
   return (
     <div>
@@ -82,6 +131,8 @@ export function WelcomeBox() {
 export function TitleCounter() {
   const [count, setCount] = useState(0);
   // {TODO} useEffect( () => { document.title = ... }, [count] )
+    const setCount = () =>{
+    setCount(count+1);
 
   return (
     <div>
