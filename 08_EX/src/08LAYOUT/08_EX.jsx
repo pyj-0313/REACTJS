@@ -67,6 +67,55 @@ function Layout({ children }) {
 }
 
 // ---------------------------------------------------------------------
+// [단계 4] 슬롯(slot) 합성 - children 외에 title/footer 도 props 로 받기
+//  {TODO} title, footer, children 세 가지를 props 로 받아
+//         - 윗칸에 {title}, 가운데에 {children}, 아랫칸에 {footer} 를 끼워 넣으세요.
+//         (children 한 곳뿐 아니라 여러 영역을 props 로 받는 '슬롯' 패턴)
+// ---------------------------------------------------------------------
+export function Card({ title, footer, children }) {
+  return (
+    <div style={{ border: "1px solid #ccc", borderRadius: "6px", marginBottom: "8px" }}>
+      <div style={{ background: "#f1f3f5", padding: "6px", fontWeight: "bold" }}>
+        {/* {TODO} title */}
+      </div>
+      <div style={{ padding: "8px" }}>{/* {TODO} children */}</div>
+      <div style={{ background: "#f8f9fa", padding: "6px", fontSize: "12px", color: "#666" }}>
+        {/* {TODO} footer */}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
+// [단계 5] 재사용 합성 - 배열을 받아 반복 레이아웃 만들기
+//  {TODO} items 배열을 map 으로 돌려, 각 항목을 칸(div)으로 반복 출력하세요. (key 는 index)
+// ---------------------------------------------------------------------
+export function Grid({ items }) {
+  return (
+    <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+      {/* {TODO} items.map((item, idx) => ( ... )) */}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
+// [단계 6] 합성 + 조건부 variant - type 에 따라 색이 바뀌는 알림
+//  {TODO} 1) type 의 기본값을 "info" 로 주세요.
+//  {TODO} 2) colors 객체에서 type 에 맞는 색을 고르세요. (없으면 info 색)
+//            const colors = { success: "#2f9e44", danger: "#e03131", info: "#1971c2" };
+//  {TODO} 3) 고른 색을 borderLeft 와 글자색(color)에 적용하고 children 을 출력하세요.
+// ---------------------------------------------------------------------
+export function Alert({ type = "info", children }) {
+  // {TODO} colors 룩업으로 color 결정
+  return (
+    <div style={{ background: "#f8f9fa", padding: "8px", marginBottom: "6px" }}>
+      {/* {TODO} borderLeft / color 적용 + children */}
+      {children}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------
 // 전체 단계를 한 번에 보여주는 메인 컴포넌트 (수정하지 않아도 됩니다)
 // ---------------------------------------------------------------------
 function EX_08() {
@@ -83,6 +132,19 @@ function EX_08() {
         <h2>HOME</h2>
         <p>Aside 없이 본문만 넓게 쓰는 레이아웃입니다.</p>
       </Layout>
+
+      <h3>[단계 4] 슬롯(slot) 합성 - Card</h3>
+      <Card title="공지사항" footer="2026-06-29 작성">
+        <p>카드 본문(children)입니다. 제목/푸터는 props 로 받았습니다.</p>
+      </Card>
+
+      <h3>[단계 5] 재사용 합성 - Grid</h3>
+      <Grid items={["A", "B", "C", "D", "E"]} />
+
+      <h3 style={{ marginTop: "12px" }}>[단계 6] 합성 + 조건부 variant - Alert</h3>
+      <Alert type="success">성공 메시지입니다.</Alert>
+      <Alert type="danger">에러 메시지입니다.</Alert>
+      <Alert type="info">정보 메시지입니다.</Alert>
     </div>
   );
 }
