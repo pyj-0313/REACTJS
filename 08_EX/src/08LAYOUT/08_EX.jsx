@@ -44,7 +44,7 @@ function Aside() {
 function Section({ children }) {
   return (
     <section style={{ flex: 1, background: "#d1e7dd", padding: "8px" }}>
-      {/* {TODO} children 출력 */}
+      {children}
     </section>
   );
 }
@@ -57,11 +57,18 @@ function Section({ children }) {
 //            - isShowAside 가 true 일 때만 <Aside /> 를 렌더 ( && 사용 )
 //            - <Section>{children}</Section> 로 본문을 합성
 // ---------------------------------------------------------------------
-function Layout({ children }) {
+function Layout({ children, isShowAside = true }) {
   return (
     <div style={{ border: "1px solid #999", marginBottom: "12px" }}>
       {/* {TODO} Header / main(조건부 Aside + Section) / Footer 합성 */}
-      <main style={{ display: "flex" }}></main>
+      <Header />
+      <main style={{ display: "flex" }}>
+        {isShowAside && <Aside />}
+        <Section>
+          {children}
+        </Section>
+      </main>
+      <Footer />
     </div>
   );
 }
@@ -76,11 +83,11 @@ export function Card({ title, footer, children }) {
   return (
     <div style={{ border: "1px solid #ccc", borderRadius: "6px", marginBottom: "8px" }}>
       <div style={{ background: "#f1f3f5", padding: "6px", fontWeight: "bold" }}>
-        {/* {TODO} title */}
+        {title}
       </div>
-      <div style={{ padding: "8px" }}>{/* {TODO} children */}</div>
+      <div style={{ padding: "8px" }}>{children}</div>
       <div style={{ background: "#f8f9fa", padding: "6px", fontSize: "12px", color: "#666" }}>
-        {/* {TODO} footer */}
+        {footer}
       </div>
     </div>
   );
@@ -94,6 +101,7 @@ export function Grid({ items }) {
   return (
     <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
       {/* {TODO} items.map((item, idx) => ( ... )) */}
+      {items.map((item, idx)=>(<div key={idx}>{item}</div>))}
     </div>
   );
 }
@@ -107,9 +115,12 @@ export function Grid({ items }) {
 // ---------------------------------------------------------------------
 export function Alert({ type = "info", children }) {
   // {TODO} colors 룩업으로 color 결정
+  const colors = { success: "#2f9e44", danger: "#e03131", info: "#1971c2" };
+  const color = colors[type] ?? colors["info"];
   return (
-    <div style={{ background: "#f8f9fa", padding: "8px", marginBottom: "6px" }}>
+    <div style={{borderLeft:`4px solid ${color}`,color:color, background: "#f8f9fa", padding: "8px", marginBottom: "6px" }}>
       {/* {TODO} borderLeft / color 적용 + children */}
+      
       {children}
     </div>
   );
