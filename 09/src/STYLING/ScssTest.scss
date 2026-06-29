@@ -1,0 +1,14 @@
+.scss-component{
+    h1{
+        background-color: orange;
+        color:white;
+    }
+    ul{
+        list-style:none;
+
+        li{
+            min-height:50px;
+            color:red;
+        }
+    }
+}
